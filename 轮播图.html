@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.sup{
+			margin:0 auto;
+			overflow: hidden;
+		}
+		.sub{
+			width: 2400px;
+			position: relative;
+			left: 0;
+			top: 0;
+		}
+		.sup,img{
+			width: 600px;
+			height: 280px;
+		}
+		img{
+			float: left;
+		}
+	</style>
+</head>
+<body>
+	<div class='sup'>
+		<div class='sub'>
+			<img src="pics/scrol-1.jpg"/>
+			<img src="pics/scrol-2.jpg"/>
+			<img src="pics/scrol-3.jpg"/>
+			<img src="pics/scrol-4.jpg"/>
+		</div>
+	</div>
+	<div class='sup btn'>
+		<a href="javascript:;" class='prev'>上一个</a>
+		<a href="javascript:;" class='next'>下一个</a>
+	</div>
+	<script src='jquery.min.js'></script>
+	<script>
+		$('.btn').on('click','a',function(){//点击按钮（）事件委托
+			$('.sub').finish();//立即结束上一次跳转
+			var l=parseInt($('.sub').css('left'));//获取left值
+			// console.log(event.target.className);
+			if (event.target.className=='prev') {//判断点击的是哪一个按钮
+				if(l==0){//当前在第一张图，并点击上一个
+					$('.sub').css({'left':'-1800px'});
+				}else{//点击上一个
+					$('.sub').animate({'left':(l+600)+'px'});
+				}
+				// console.log(l);
+			}else if(event.target.className=='next'){//点击下一个
+				if(l==-1800){//若当前在最后一张图，点击下一个
+					$('.sub').css({'left':'0px'});//显示第一张图
+				}else{
+					$('.sub').animate({'left':(l-600)+'px'});
+				}
+				//console.log(l);
+			}
+		})
+
+		
+
+
+
+	</script>
+</body>
+</html>

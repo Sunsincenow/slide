@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="demo.css">
+</head>
+<body>
+	<!-- 看sql语句：创建数据库，创建表，表关联join，增，删，改，查数据，子查询,建索引 ，多个表关联 ，临时表 -->
+	<ul class="tit">
+		<li>标题1 <i class="clo">×</i></li>
+		<li>标题2 <i class="clo">×</i></li>
+		<li>标题3 <i class="clo">×</i></li>
+		<i class="add">+</i>
+		<i class="back">←</i>
+	</ul>
+	<ul class="con">
+		<li>内容1</li>
+		<li>内容2</li>
+		<li>内容3</li>
+	</ul>
+	<!-- <script src="tab.js"></script> -->
+
+	
+	<script src="jquery.min.js"></script>
+	<script>
+		//点击对应选项卡显示
+			$(".tit").on('click','li',function(){//用on绑定事件能解决动态添加元素事件绑定问题
+				var i=$(this).index();
+				console.log(i);
+				$(".con li").eq(i).show().siblings().hide();
+				$(this).addClass('on').siblings().removeClass('on');
+			});
+
+		//点击关闭
+			var arr=[];
+			$('.tit').on('click','.clo',function(){
+				var i=$(this).parent().index();
+				arr.push([$(".tit li")[i],$(".con li")[i]]);
+				$(".tit li").eq(i).remove();
+				$(".con li").eq(i).remove();
+				console.log(arr);
+			});
+		//点击添加
+			$('.add').on('click',function(){
+				var i=$(this).index();
+				console.log(i);
+				$(this).before("<li>标题<i class='clo'>×</i></li>");
+				$('.con').append("<li>内容</li>");
+        	});
+        //点击撤销
+        	$('.back').on('click',function(){
+        		var can=arr.pop();
+        		console.log(can);
+        		$('.tit li').removeClass('on');
+        		$(can[0]).addClass('on');
+        		$(can[0]).insertBefore('.add');
+        		$('.con').append(can[1]);
+        		$(can[1]).show().siblings().hide();
+        	})
+
+        
+
+	</script>
+
+</body>
+</html>
